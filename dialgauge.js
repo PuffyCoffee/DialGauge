@@ -235,7 +235,6 @@ setInterval(function() {
 	});
 	var mid_value = 500/2;
 	var value_offset = value - mid_value;
-	console.info(value);
 	var sign = (value_offset >= 0) ? 1 : -1;
 	var angle = (Math.abs(value_offset)/mid_value)*120*sign;
 	pointer.animate({
