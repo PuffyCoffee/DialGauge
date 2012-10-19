@@ -217,5 +217,24 @@ var pointer = paper.path("M142,168L149,54L151,54L158,168L155,170L145,170Z").attr
 dial_gauge.push(pointer);
 center_button.toFront();
 //rotate pointer
-pointer.transform("r-117,150,150");
-console.log(dial_gauge);
+//pointer.transform("r120,150,150");
+//range from -120 to 120
+//console.log(dial_gauge);
+function getRandomInteger(min, max) {
+	return Math.floor(
+		Math.random() * (max - min + 1)
+	) + min;
+}
+function getRandomNumber(min, max) {
+	return Math.random() * (max - min) + min;
+}
+console.info(getRandomInteger(-120, 120));
+setInterval(function() {
+	pointer.animate({
+		transform: 'r' + getRandomInteger(-120, 120)+",150,150"
+	}, 1000);
+}, 1000);
+
+
+
+
