@@ -228,12 +228,20 @@ function getRandomInteger(min, max) {
 function getRandomNumber(min, max) {
 	return Math.random() * (max - min) + min;
 }
-console.info(getRandomInteger(-120, 120));
 setInterval(function() {
+	var value = getRandomInteger(0, 500);
+	bottom_number.attr({
+		text: value
+	});
+	var mid_value = 500/2;
+	var value_offset = value - mid_value;
+	console.info(value);
+	var sign = (value_offset >= 0) ? 1 : -1;
+	var angle = (Math.abs(value_offset)/mid_value)*120*sign;
 	pointer.animate({
-		transform: 'r' + getRandomInteger(-120, 120)+",150,150"
-	}, 1000);
-}, 1000);
+		transform: 'r' + angle + ",150,150"
+	}, 2000, "elastic");
+}, 5000);
 
 
 
