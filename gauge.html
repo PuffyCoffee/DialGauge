@@ -4,16 +4,49 @@
 <title>gauge</title>
 <style type="text/css">
 .gauge {
-	width: 300px;
-	height: 300px;
+	width: 280px;
+	height: 280px;
 	border: 1px solid #ccc
 }
 </style>
 <script type="text/javascript" src="raphael.js"></script>
 </head>
 <body>
-<h3>Dial Gauge</h3>
+<h3 id="title">Dial Gauge</h3>
 <div id="gauge" class="gauge"></div>
 <script type="text/javascript" src="dialgauge.js"></script>
+<script>
+var dial = Raphael('gauge', 280, 280).dialGauge({
+	div: document.getElementById('gauge')
+});
+console.log(dial);
+function getRandomInteger(min, max) {
+	return Math.floor(
+		Math.random() * (max - min + 1)
+	) + min;
+}
+function getRandomNumber(min, max) {
+	return Math.random() * (max - min) + min;
+}
+setInterval(function() {
+	var value = getRandomInteger(0, 500);
+	dial.number.attr({
+		text: value
+	});
+	var mid_value = 500/2;
+	var value_offset = value - mid_value;
+	var sign = (value_offset >= 0) ? 1 : -1;
+	var angle = (Math.abs(value_offset)/mid_value)*120*sign;
+	if (dial.isMobile) {
+		dial.pointer.animate({
+			transform: 'r' + angle + ","+dial.cx+","+dial.cy
+		});
+	} else {
+		dial.pointer.animate({
+			transform: 'r' + angle + ","+dial.cx+","+dial.cy
+		}, 2000, "elastic");
+	}	
+}, 2000);
+</script>
 </body>
 </html>
