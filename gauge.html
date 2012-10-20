@@ -17,7 +17,10 @@
 <script type="text/javascript" src="dialgauge.js"></script>
 <script>
 var dial = Raphael('gauge', 380, 380).dialGauge({
-	div: document.getElementById('gauge')
+	div: document.getElementById('gauge'),
+	unit: 'ms',
+	min: 0,
+	max: 500
 });
 console.log(dial);
 function getRandomInteger(min, max) {

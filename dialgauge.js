@@ -123,7 +123,7 @@ Raphael.fn.dialGauge = function(args) {
 		dial_gauge.push(mark);
 	}
 	//Draw unit
-	var unit = paper.text(cx, cy*.63, "ms").attr({
+	var unit = paper.text(cx, cy*.63, args.unit).attr({
 		'font-size': cr*.12,
 		fill: '#ffffff',
 		'text-anchor': 'middle'
@@ -135,12 +135,12 @@ Raphael.fn.dialGauge = function(args) {
 		valueBCoordinateX = pointASet[pointASet.length-2].x - cr*.067,
 		valueBCoordinateY = pointASet[pointASet.length-2].y + cr*.067;
 
-	var start_value = paper.text(valueACoordinateX, valueACoordinateY, "0").attr({
+	var start_value = paper.text(valueACoordinateX, valueACoordinateY, args.min).attr({
 		'font-size': cr*.107,
 		'text-anchor': 'start',
 		fill: '#ffffff'
 	});
-	var end_value = paper.text(valueBCoordinateX, valueBCoordinateY, "500").attr({
+	var end_value = paper.text(valueBCoordinateX, valueBCoordinateY, args.max).attr({
 		'font-size': cr*.107,
 		'text-anchor': 'end',
 		'stroke-width': .5,
@@ -192,7 +192,7 @@ Raphael.fn.dialGauge = function(args) {
 			   	   });
 	dial_gauge.push(threshold1, threshold2, threshold3);		   	
 	mark_long.toFront();
-	var bottom_number = paper.text(cx, cy*1.6, "250").attr({
+	var bottom_number = paper.text(cx, cy*1.6, args.min).attr({
 		'font-size': cr*.17,
 		'text-anchor': 'middle',
 		fill: '#ffffff'
@@ -228,6 +228,7 @@ Raphael.fn.dialGauge = function(args) {
 		fill: '#dc0000',
 		stroke: '#dc0000'
 	});
+	pointer.transform("r-120,"+cx+","+cy);
 	dial_gauge.push(pointer);
 	center_button.toFront();	
 	var isMobile = false;
