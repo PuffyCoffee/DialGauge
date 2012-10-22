@@ -4,9 +4,8 @@
 <title>gauge</title>
 <style type="text/css">
 .gauge {
-	width: 380px;
-	height: 380px;
-	border: 1px solid #ccc
+	width: 200px;
+	height: 200px;
 }
 </style>
 <script type="text/javascript" src="raphael-min.js"></script>
@@ -14,15 +13,34 @@
 <body>
 <h3 id="title">Dial Gauge</h3>
 <div id="gauge" class="gauge"></div>
+<div>
+<div>Gauge Skin</div>
+<select id="skin">
+	<option value="CONSOLE_RED">CONSOLE_RED</option>
+	<option value="CRISP_WHITE">CRISP_WHITE</option>
+	<option value="CPU_UTILIZATION">CPU_UTILIZATION</option>
+	<option value="CLEAN_BLACK">CLEAN_BLACK</option>
+	<option value="CLEAN_BLACK_NO_TRICKS">CLEAN_BLACK_NO_TRICKS</option>
+	<option value="DISK_IO_BBR">DISK_IO_BBR</option>
+	<option value="THREAD_COUNTS">THREAD_COUNTS</option>
+</select>
+</div>
 <script type="text/javascript" src="dialgauge.js"></script>
 <script>
-var dial = Raphael('gauge', 380, 380).dialGauge({
-	div: document.getElementById('gauge'),
-	unit: 'ms',
-	min: 0,
-	max: 500
-});
-console.log(dial);
+var skin = document.getElementById('skin');
+	dial = Raphael('gauge', 200, 200).dialGauge({
+		div: document.getElementById('gauge'),
+		unit: 'ms',
+		min: 0,
+		max: 500,
+		skin: skin.value
+	});
+	skin.addEventListener('change', function() {
+		//document.getElementById('gauge').removeChild(document.getElementById('gauge').childNodes[0]);
+		//console.log(skin.value);
+		dial.this.callBack(skin.value);
+	}, false);
+//console.log(dial);
 function getRandomInteger(min, max) {
 	return Math.floor(
 		Math.random() * (max - min + 1)
@@ -49,7 +67,7 @@ setInterval(function() {
 			transform: 'r' + angle + ","+dial.cx+","+dial.cy
 		}, 2000, "elastic");
 	}	
-}, 60000);
+}, 6000);
 </script>
 </body>
 </html>

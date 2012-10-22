@@ -16,12 +16,13 @@ Raphael.fn.dialGauge = function(args) {
 			stroke: '#590000',
 			'stroke-width': 0.5
 		}),
+		c3_glow,
 		c4 = paper.circle(cx, cy, cr*.73).attr({
 			fill: '120-#000000-#222222: 60-#ddd',
 			stroke: '#000000'
 		});
 	dial_gauge.push(c1, c2, c3, c4);
-	c3.glow({
+	c3_glow = c3.glow({
 		width: cr/10,
 		fill: false,
 		opacity: cr/100,
@@ -121,7 +122,7 @@ Raphael.fn.dialGauge = function(args) {
 				   });
 		mark_short.push(mark);
 		dial_gauge.push(mark);
-	}
+	}	
 	//Draw unit
 	var unit = paper.text(cx, cy*.63, args.unit).attr({
 		'font-size': cr*.12,
@@ -191,7 +192,7 @@ Raphael.fn.dialGauge = function(args) {
 			   	   	'stroke-width': 8
 			   	   });
 	dial_gauge.push(threshold1, threshold2, threshold3);		   	
-	mark_long.toFront();
+	
 	var bottom_number = paper.text(cx, cy*1.6, args.min).attr({
 		'font-size': cr*.17,
 		'text-anchor': 'middle',
@@ -229,8 +230,7 @@ Raphael.fn.dialGauge = function(args) {
 		stroke: '#dc0000'
 	});
 	pointer.transform("r-120,"+cx+","+cy);
-	dial_gauge.push(pointer);
-	center_button.toFront();	
+	dial_gauge.push(pointer);	
 	var isMobile = false;
 	var title = document.getElementById('title');
 	if (navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
@@ -240,6 +240,93 @@ Raphael.fn.dialGauge = function(args) {
 		title.innerHTML += " -- Standard Browser";
 		isMobile = false;
 	}	
+	mark_short.toFront();
+	mark_long.toFront();
+	pointer.toFront();
+	center_button.toFront();
+	//skin
+	function setSkin (c3_color, c3_color_glow, c4_color_fill, c4_color_stroke, mark_long_color, mark_short_color, 
+		unit_color, start_value_color, end_value_color, bottom_number_color, pointer_color, hide_mark) {
+		c3_glow.remove();
+		c3.attr({stroke: c3_color});
+		c3_glow = c3.glow({
+			width: cr/10,
+			fill: false,
+			opacity: cr/100,
+			color: c3_color_glow
+		});
+		if (hide_mark) {
+			mark_long.hide();
+			mark_short.hide();
+		} else {
+			mark_long.attr({stroke: mark_long_color});
+			mark_short.attr({stroke: mark_short_color});
+			mark_long.show();
+			mark_short.show();
+		}		
+		c4.attr({fill: c4_color_fill, stroke: c4_color_stroke});
+		unit.attr({fill: unit_color});
+		start_value.attr({fill: start_value_color});
+		end_value.attr({fill: end_value_color});
+		bottom_number.attr({fill: bottom_number_color});
+		pointer.attr({fill: pointer_color, stroke: pointer_color});		
+	}	
+	if (typeof args.skin !== 'undefined') {
+		switch (args.skin) {
+			case 'CPU_UTILIZATION':
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
+				break;
+			case 'CRISP_WHITE':
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', false);
+				break;
+			case 'CLEAN_BLACK':
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
+				break;
+			case 'CLEAN_BLACK_NO_TRICKS':
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
+				break;
+			case 'DISK_IO_BBR':
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', true);
+				break;
+			case 'THREAD_COUNTS':
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
+				break;
+			case 'CONSOLE_RED':
+				break;
+			default:
+				console.info("unknown skin name.");
+		}
+	} else {
+		//Skin: CONSOLE_RED
+	}
+	this.callBack = function(skin_name) {
+		console.log(skin_name);		
+		switch (skin_name) {
+			case 'CPU_UTILIZATION':
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
+				break;
+			case 'CRISP_WHITE':
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', false);
+				break;
+			case 'CLEAN_BLACK':
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
+				break;
+			case 'CLEAN_BLACK_NO_TRICKS':
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
+				break;
+			case 'DISK_IO_BBR':
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', true);
+				break;
+			case 'THREAD_COUNTS':
+				setSkin('#590000', '#720000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
+				break;
+			case 'CONSOLE_RED':
+				setSkin('#590000', '#720000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
+				break;
+			default:
+				console.info("unknown skin name.");
+		}
+	};
 	obj = {
 		'elements': dial_gauge,
 		'width': width,
@@ -249,7 +336,8 @@ Raphael.fn.dialGauge = function(args) {
 		'cr': cr,
 		'pointer': pointer,
 		'number': bottom_number,
-		'isMobile': isMobile
+		'isMobile': isMobile,
+		'this': this
 	};
 	return obj;
 }
