@@ -299,7 +299,7 @@ Raphael.fn.dialGauge = function(args) {
 	} else {
 		//Skin: CONSOLE_RED
 	}
-	this.callBack = function(skin_name) {
+	this.changeSkin = function(skin_name) {
 		console.log(skin_name);		
 		switch (skin_name) {
 			case 'CPU_UTILIZATION':

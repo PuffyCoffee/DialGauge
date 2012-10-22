@@ -36,11 +36,8 @@ var skin = document.getElementById('skin');
 		skin: skin.value
 	});
 	skin.addEventListener('change', function() {
-		//document.getElementById('gauge').removeChild(document.getElementById('gauge').childNodes[0]);
-		//console.log(skin.value);
-		dial.this.callBack(skin.value);
+		dial.this.changeSkin(skin.value);
 	}, false);
-//console.log(dial);
 function getRandomInteger(min, max) {
 	return Math.floor(
 		Math.random() * (max - min + 1)
