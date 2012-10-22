@@ -9,7 +9,7 @@
 	border: 1px solid #ccc
 }
 </style>
-<script type="text/javascript" src="raphael.js"></script>
+<script type="text/javascript" src="raphael-min.js"></script>
 </head>
 <body>
 <h3 id="title">Dial Gauge</h3>
@@ -49,7 +49,7 @@ setInterval(function() {
 			transform: 'r' + angle + ","+dial.cx+","+dial.cy
 		}, 2000, "elastic");
 	}	
-}, 2000);
+}, 60000);
 </script>
 </body>
 </html>
