@@ -1,3 +1,9 @@
+/** 
+ * Raphael Dial Gauge 
+ * Coypright © 2012 Peng Zhang
+ * MIT licenses 
+ */
+
 Raphael.fn.dialGauge = function(args) {
 	var paper = this, dial_gauge = paper.set(),
 		obj = {},
@@ -307,22 +313,28 @@ Raphael.fn.dialGauge = function(args) {
 	if (typeof args.skin !== 'undefined') {
 		switch (args.skin) {
 			case 'CPU_UTILIZATION':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
 				break;
 			case 'CRISP_WHITE':
-				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', false);
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', 
+					'#000000', '#000000', '#000000', '#000000', '#000000', '#000000', false);
 				break;
 			case 'CLEAN_BLACK':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			case 'CLEAN_BLACK_NO_TRICKS':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
 				break;
 			case 'DISK_IO_BBR':
-				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', true);
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', 
+					'#000000', '#000000', '#000000', '#000000', '#000000', '#000000', true);
 				break;
 			case 'THREAD_COUNTS':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			case 'CONSOLE_RED':
 				break;
@@ -332,34 +344,50 @@ Raphael.fn.dialGauge = function(args) {
 	} else {
 		//Skin: CONSOLE_RED
 	}
-	this.changeSkin = function(skin_name) {
-		console.log(skin_name);		
+	this.changeSkin = function(skin_name) {		
 		switch (skin_name) {
 			case 'CPU_UTILIZATION':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
 				break;
 			case 'CRISP_WHITE':
-				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', false);
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', 
+					'#000000', '#000000', '#000000', '#000000', '#000000', '#000000', false);
 				break;
 			case 'CLEAN_BLACK':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			case 'CLEAN_BLACK_NO_TRICKS':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
 				break;
 			case 'DISK_IO_BBR':
-				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', true);
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', 
+					'#000000', '#000000', '#000000', '#000000', '#000000', '#000000', true);
 				break;
 			case 'THREAD_COUNTS':
-				setSkin('#590000', '#720000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
+				setSkin('#590000', '#720000', '120-#000000-#222222: 60-#ddd', 
+					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			case 'CONSOLE_RED':
-				setSkin('#590000', '#720000', '120-#000000-#222222: 60-#ddd', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
+				setSkin('#590000', '#720000', '120-#000000-#222222: 60-#ddd', 
+					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			default:
 				console.info("unknown skin name.");
 		}
 	};
+	//Calculate alert range
+	var mid_value = (args.max + args.min)/2, angle_sign = 1, alert_range = [];	
+	if (args.alert < 250) {
+		alert_range.push((args.alert - mid_value)/mid_value * 120);		
+		alert_range.push(120)
+	} else {
+		alert_range.push((args.alert - mid_value)/mid_value * 120);
+		alert_range.push(120);
+	}
+	console.log(alert_range)
 	obj = {
 		'elements': dial_gauge,
 		'width': width,
@@ -368,6 +396,8 @@ Raphael.fn.dialGauge = function(args) {
 		'cy': cy,
 		'cr': cr,
 		'pointer': pointer,
+		'alert': alert_range,
+		'c4': c4,
 		'number': bottom_number,
 		'isMobile': isMobile,
 		'option': this

@@ -4,8 +4,8 @@
 <title>gauge</title>
 <style type="text/css">
 .gauge {
-	width: 370px;
-	height: 370px;
+	width: 270px;
+	height: 270px;
 }
 </style>
 <script type="text/javascript" src="raphael-min.js"></script>
@@ -28,7 +28,7 @@
 <script type="text/javascript" src="dialgauge.js"></script>
 <script>
 var skin = document.getElementById('skin');
-	dial = Raphael('gauge', 370, 370).dialGauge({
+	dial = Raphael('gauge', 270, 270).dialGauge({
 		div: document.getElementById('gauge'),
 		unit: 'ms',
 		min: 0,
@@ -36,8 +36,10 @@ var skin = document.getElementById('skin');
 		skin: skin.value,
 		thresholds: {
 			values: [250, 400, 500],
-			colors: ['#2fff2f', '#ffff63', '#ff3939']
-		}
+			colors: ['#2fff2f', '#ffff63', '#ff3939'] 
+					//['#15317e', '#4096ee', '#dd0000']
+		},
+		alert: 400
 	});
 	skin.addEventListener('change', function() {
 		dial.option.changeSkin(skin.value);
@@ -63,11 +65,16 @@ setInterval(function() {
 		dial.pointer.animate({
 			transform: 'r' + angle + ","+dial.cx+","+dial.cy
 		});
+		if (dial.alert[0] <= angle) {
+			dial.c4.attr({
+				fill: '#ff0000'
+			});
+		}
 	} else {
 		dial.pointer.animate({
 			transform: 'r' + angle + ","+dial.cx+","+dial.cy
 		}, 2000, "elastic");
-	}	
+	}
 }, 6000);
 </script>
 </body>
