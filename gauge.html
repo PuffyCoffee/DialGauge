@@ -4,8 +4,8 @@
 <title>gauge</title>
 <style type="text/css">
 .gauge {
-	width: 200px;
-	height: 200px;
+	width: 370px;
+	height: 370px;
 }
 </style>
 <script type="text/javascript" src="raphael-min.js"></script>
@@ -28,15 +28,19 @@
 <script type="text/javascript" src="dialgauge.js"></script>
 <script>
 var skin = document.getElementById('skin');
-	dial = Raphael('gauge', 200, 200).dialGauge({
+	dial = Raphael('gauge', 370, 370).dialGauge({
 		div: document.getElementById('gauge'),
 		unit: 'ms',
 		min: 0,
 		max: 500,
-		skin: skin.value
+		skin: skin.value,
+		thresholds: {
+			values: [250, 400, 500],
+			colors: ['#2fff2f', '#ffff63', '#ff3939']
+		}
 	});
 	skin.addEventListener('change', function() {
-		dial.this.changeSkin(skin.value);
+		dial.option.changeSkin(skin.value);
 	}, false);
 function getRandomInteger(min, max) {
 	return Math.floor(

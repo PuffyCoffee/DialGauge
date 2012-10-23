@@ -148,50 +148,83 @@ Raphael.fn.dialGauge = function(args) {
 		fill: '#ffffff'
 	});
 	dial_gauge.push(start_value, end_value);
-	//threshold 90 radius
-	//Green
-	var pointAX = pointFSet[2].x,
-		pointAY = pointFSet[2].y,
-		pointBX = pointFSet[36].x,
-		pointBY = pointFSet[36].y;
-	var threshold1 = paper.path("M"+pointBX+","
-				  +pointBY+
-			   	  "A"+(cr*.60)+","+(cr*.60)+ 
-			   	   ",0,0,1,"+
-			   	   pointAX+","
-			   	  +pointAY).attr({
-			   	   	stroke: '#2fff2f',
-			   	   	'stroke-width': 8
-			   	   });
-	//Yellow
-	var pointCX = pointFSet[2].x,
-		pointCY = pointFSet[2].y,
-		pointDX = pointFSet[15].x,
-		pointDY = pointFSet[15].y;
-	var threshold2 = paper.path("M"+pointCX+","
-				  +pointCY+
-				   "A"+(cr*.60)+","+(cr*.60)+
-				   ",0,0,1,"+
-			   	   pointDX+","
-			   	  +pointDY).attr({
-			   	   	stroke: '#ffff63',
-			   	   	'stroke-width': 8
-			   	   });
-	//Red
-	var pointEX = pointFSet[15].x,
-		pointEY = pointFSet[15].y,
-		pointFX = pointFSet[35].x,
-		pointFY = pointFSet[35].y;
-	var threshold3 = paper.path("M"+pointEX+","
-				  +pointEY+
-				   "A"+(cr*.60)+","+(cr*.60)+
-				   ",0,0,1,"+
-			   	   pointFX+","
-			   	  +pointFY).attr({
-			   	   	stroke: '#ff3939',
-			   	   	'stroke-width': 8
-			   	   });
-	dial_gauge.push(threshold1, threshold2, threshold3);		   	
+	//threshold
+	if (typeof args.thresholds === 'undefined') {
+		//Green
+		var pointAX = pointFSet[2].x,
+			pointAY = pointFSet[2].y,
+			pointBX = pointFSet[36].x,
+			pointBY = pointFSet[36].y;
+		var threshold1 = paper.path("M"+pointBX+","
+					  +pointBY+
+				   	  "A"+(cr*.60)+","+(cr*.60)+ 
+				   	   ",0,0,1,"+
+				   	   pointAX+","
+				   	  +pointAY).attr({
+				   	   	stroke: '#2fff2f',
+				   	   	'stroke-width': 8
+				   	   });
+		//Yellow
+		var pointCX = pointFSet[2].x,
+			pointCY = pointFSet[2].y,
+			pointDX = pointFSet[15].x,
+			pointDY = pointFSet[15].y;
+		var threshold2 = paper.path("M"+pointCX+","
+					  +pointCY+
+					   "A"+(cr*.60)+","+(cr*.60)+
+					   ",0,0,1,"+
+				   	   pointDX+","
+				   	  +pointDY).attr({
+				   	   	stroke: '#ffff63',
+				   	   	'stroke-width': 8
+				   	   });
+		//Red
+		var pointEX = pointFSet[15].x,
+			pointEY = pointFSet[15].y,
+			pointFX = pointFSet[35].x,
+			pointFY = pointFSet[35].y;
+		var threshold3 = paper.path("M"+pointEX+","
+					  +pointEY+
+					   "A"+(cr*.60)+","+(cr*.60)+
+					   ",0,0,1,"+
+				   	   pointFX+","
+				   	  +pointFY).attr({
+				   	   	stroke: '#ff3939',
+				   	   	'stroke-width': 8
+				   	   });
+		dial_gauge.push(threshold1, threshold2, threshold3);		  
+	} else {
+		var length = args.thresholds.values.length, i = 0
+			min_value = args.min, max_value = args.max, range = max_value - min_value,
+			previous_value = min_value, index_number = 0, pointGSet = [];
+		for (var k = 36; k < pointFSet.length; k += 1) {
+			pointGSet.push(pointFSet[k]);
+		}		
+		for (var k = 0; k <= 35; k += 1) {
+			pointGSet.push(pointFSet[k]);
+		}		
+		while (i < length) {
+			var threshold = args.thresholds.values[i] - previous_value;
+			var percentage = threshold/range, index, previous_index = index_number;			
+			index = 40*percentage;
+			index_number += index;
+			var pointAX = pointGSet[previous_index].x,
+				pointAY = pointGSet[previous_index].y,
+				pointBX = pointGSet[index_number].x,
+				pointBY = pointGSet[index_number].y;			
+			var arc = paper.path("M"+pointAX+","
+					  +pointAY+
+					   "A"+(cr*.60)+","+(cr*.60)+
+					   ",0,0,1,"+
+				   	   pointBX+","
+				   	  +pointBY).attr({
+				   	   	stroke: args.thresholds.colors[i],
+				   	   	'stroke-width': 8
+				   	   });
+			previous_value = args.thresholds.values[i];
+			i += 1;
+		}
+	} 	
 	
 	var bottom_number = paper.text(cx, cy*1.6, args.min).attr({
 		'font-size': cr*.17,
@@ -337,7 +370,7 @@ Raphael.fn.dialGauge = function(args) {
 		'pointer': pointer,
 		'number': bottom_number,
 		'isMobile': isMobile,
-		'this': this
+		'option': this
 	};
 	return obj;
 }
