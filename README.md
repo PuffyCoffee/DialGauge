@@ -19,6 +19,7 @@ var dial = Raphael('gauge', 370, 370).dialGauge({
 	alert: 400
 });
 dial.instance.pointAt(300);
+dial.instance.changeSkin("CLEAN_BLACK");
 ```
 
 Options
