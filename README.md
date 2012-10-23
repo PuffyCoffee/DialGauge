@@ -15,8 +15,10 @@ var dial = Raphael('gauge', 370, 370).dialGauge({
 	thresholds: {
 		values: [250, 400, 500],
 		colors: ['#2ffff2f', '#ffff63', '#ff3939']
-	}
+	},
+	alert: 400
 });
+dial.instance.pointAt(300);
 ```
 
 Options
@@ -30,5 +32,6 @@ Options
 * thresholds: 
 	* values: specify thresholds ranges. e.g. [250, 400, 500] => range #1 [min, 250] range #2 [250, 400] range #3 [400, 500]
 	* colors: corresponding colors
+* alert: number. e.g. 400   alert when value between [400, max]
 
 

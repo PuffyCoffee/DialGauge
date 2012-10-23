@@ -35,14 +35,13 @@ var skin = document.getElementById('skin');
 		max: 500,
 		skin: skin.value,
 		thresholds: {
-			values: [250, 400, 500],
-			colors: ['#2fff2f', '#ffff63', '#ff3939'] 
-					//['#15317e', '#4096ee', '#dd0000']
+			values: [200, 300, 500],
+			colors: ['#2fff2f', '#ffff63', '#ff3939']					
 		},
-		alert: 400
+		alert: 300
 	});
 	skin.addEventListener('change', function() {
-		dial.option.changeSkin(skin.value);
+		dial.instance.changeSkin(skin.value);
 	}, false);
 function getRandomInteger(min, max) {
 	return Math.floor(
@@ -54,28 +53,9 @@ function getRandomNumber(min, max) {
 }
 setInterval(function() {
 	var value = getRandomInteger(0, 500);
-	dial.number.attr({
-		text: value
-	});
-	var mid_value = 500/2;
-	var value_offset = value - mid_value;
-	var sign = (value_offset >= 0) ? 1 : -1;
-	var angle = (Math.abs(value_offset)/mid_value)*120*sign;
-	if (dial.isMobile) {
-		dial.pointer.animate({
-			transform: 'r' + angle + ","+dial.cx+","+dial.cy
-		});
-		if (dial.alert[0] <= angle) {
-			dial.c4.attr({
-				fill: '#ff0000'
-			});
-		}
-	} else {
-		dial.pointer.animate({
-			transform: 'r' + angle + ","+dial.cx+","+dial.cy
-		}, 2000, "elastic");
-	}
-}, 6000);
+	dial.instance.pointAt(value);
+}, 3000);
+
 </script>
 </body>
 </html>

@@ -375,7 +375,7 @@ Raphael.fn.dialGauge = function(args) {
 					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			default:
-				console.info("unknown skin name.");
+				console.log("unknown skin name.");
 		}
 	};
 	//Calculate alert range
@@ -387,7 +387,71 @@ Raphael.fn.dialGauge = function(args) {
 		alert_range.push((args.alert - mid_value)/mid_value * 120);
 		alert_range.push(120);
 	}
-	console.log(alert_range)
+	var fill_color = c4.attr('fill'),
+		stroke_color = c4.attr('stroke');
+	//move needle
+	this.pointAt = function(value) {
+		var value_offset = value - mid_value,
+			sign = (value_offset >= 0) ? 1 : -1,
+			angle = (Math.abs(value_offset)/mid_value)*120*sign;
+		bottom_number.attr({
+			text: value
+		});
+		if (isMobile) {
+			pointer.animate({
+				transform: 'r' + angle + ","+cx+","+cy
+			});		
+		} else {
+			pointer.animate({
+				transform: 'r' + angle + ","+cx+","+cy
+			}, 2000, "elastic");			
+		}
+		if (typeof args.alert !== 'undefined') {			
+			if (alert_range[0] <= angle) {
+				var blink_red = function() {
+						c4.animate({
+							fill: '#ff6633',
+							stroke: '#ffffff'
+						}, 1000, blink_);
+					},
+					blink_ = function() {
+						c4.animate({
+							fill: fill_color,
+							stroke: stroke_color
+						}, 1000, blink_red);
+					};
+					pointer.stop();
+				var shake_ = function() {
+						pointer.animate({
+							transform: 'r'+(angle - 2)+","+cx+","+cy
+						}, 100, _shake);
+					},
+					_shake = function() {
+						pointer.animate({
+							transform: 'r'+(angle + 2)+","+cx+","+cy
+						}, 100, shake_);
+					};			
+				blink_red();
+				shake_();
+			} else {				
+				c4.stop();
+				pointer.stop();
+				if (isMobile) {
+					pointer.animate({
+						transform: 'r' + angle + ","+cx+","+cy
+					});		
+				} else {
+					pointer.animate({
+						transform: 'r' + angle + ","+cx+","+cy
+					}, 2000, "elastic");			
+				}
+				c4.attr({
+					fill: fill_color,
+					stroke: stroke_color
+				});
+			}
+		}		 
+	}
 	obj = {
 		'elements': dial_gauge,
 		'width': width,
@@ -397,10 +461,10 @@ Raphael.fn.dialGauge = function(args) {
 		'cr': cr,
 		'pointer': pointer,
 		'alert': alert_range,
-		'c4': c4,
+		'panel': c4,
 		'number': bottom_number,
 		'isMobile': isMobile,
-		'option': this
+		'instance': this
 	};
 	return obj;
 }
