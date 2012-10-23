@@ -1,6 +1,6 @@
 # Raphael dial gauge
 - Raphael plugin
-- Different skins
+- Five skins
 
 Example
 -------
