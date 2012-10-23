@@ -1,8 +1,10 @@
 # Raphael dial gauge
-* Raphael plugin
-* Different skins
+- Raphael plugin
+- Different skins
+
 Example
-```
+-------
+
 <script>
 var dial = Raphael('gauge', 370, 370).dialGauge({
 	div: document.getElementById('gauge'),
@@ -16,8 +18,11 @@ var dial = Raphael('gauge', 370, 370).dialGauge({
 	}
 });
 </script>
-```
-options
+
+
+Options
+-------
+
 * div: wrapper
 * unit: embedded lable
 * min: min number
