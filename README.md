@@ -5,20 +5,19 @@
 Example
 -------
 
-<script>
-var dial = Raphael('gauge', 370, 370).dialGauge({
-	div: document.getElementById('gauge'),
-	unit: 'ms',
-	min: 0,
-	max: 500,
-	skin: 'CRISP_WHITE',
-	thresholds: {
-		values: [250, 400, 500],
-		colors: ['#2ffff2f', '#ffff63', '#ff3939']
-	}
-});
-</script>
-
+```
+	var dial = Raphael('gauge', 370, 370).dialGauge({
+		div: document.getElementById('gauge'),
+		unit: 'ms',
+		min: 0,
+		max: 500,
+		skin: 'CRISP_WHITE',
+		thresholds: {
+			values: [250, 400, 500],
+			colors: ['#2ffff2f', '#ffff63', '#ff3939']
+		}
+	});
+```
 
 Options
 -------
