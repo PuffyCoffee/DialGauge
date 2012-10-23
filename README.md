@@ -1,6 +1,7 @@
 # Raphael dial gauge
 - Raphael plugin
 - Five skins
+- MIT license
 
 Example
 -------
