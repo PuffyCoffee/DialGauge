@@ -1,7 +1,7 @@
 /** 
  * Raphael Dial Gauge 
- * Coypright © 2012 Peng Zhang
- * MIT licenses 
+ * @author pzhang
+ * 
  */
 
 Raphael.fn.dialGauge = function(args) {
@@ -382,7 +382,7 @@ Raphael.fn.dialGauge = function(args) {
 	var mid_value = (args.max + args.min)/2, angle_sign = 1, alert_range = [];	
 	if (args.alert < 250) {
 		alert_range.push((args.alert - mid_value)/mid_value * 120);		
-		alert_range.push(120)
+		alert_range.push(120);
 	} else {
 		alert_range.push((args.alert - mid_value)/mid_value * 120);
 		alert_range.push(120);
@@ -451,7 +451,7 @@ Raphael.fn.dialGauge = function(args) {
 				});
 			}
 		}		 
-	}
+	};
 	obj = {
 		'elements': dial_gauge,
 		'width': width,
@@ -467,7 +467,7 @@ Raphael.fn.dialGauge = function(args) {
 		'instance': this
 	};
 	return obj;
-}
+};
 
 
 
