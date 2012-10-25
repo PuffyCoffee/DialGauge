@@ -270,13 +270,10 @@ Raphael.fn.dialGauge = function(args) {
 	});
 	pointer.transform("r-120,"+cx+","+cy);
 	dial_gauge.push(pointer);	
-	var isMobile = false;
-	var title = document.getElementById('title');
-	if (navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
-		title.innerHTML += " -- iOS";
+	var isMobile = false;	
+	if (navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {		
 		isMobile = true;
-	} else {
-		title.innerHTML += " -- Standard Browser";
+	} else {		
 		isMobile = false;
 	}	
 	mark_short.toFront();
