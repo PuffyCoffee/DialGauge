@@ -229,6 +229,7 @@ Raphael.fn.dialGauge = function(args) {
 				   	   });
 			previous_value = args.thresholds.values[i];
 			i += 1;
+			dial_gauge.push(arc);
 		}
 	} 	
 	
