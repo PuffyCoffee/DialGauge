@@ -35,8 +35,8 @@ var skin = document.getElementById('skin');
 		max: 500,
 		skin: skin.value,
 		thresholds: {
-			values: [200, 300, 500],
-			colors: ['#2fff2f', '#ffff63', '#ff3939']					
+			values: [250, 500],
+			colors: ['#2fff2f', '#ff3939']					
 		},
 		alert: 300
 	});
@@ -51,6 +51,7 @@ function getRandomInteger(min, max) {
 function getRandomNumber(min, max) {
 	return Math.random() * (max - min) + min;
 }
+
 setInterval(function() {
 	var value = getRandomInteger(0, 500);
 	dial.instance.pointAt(value);

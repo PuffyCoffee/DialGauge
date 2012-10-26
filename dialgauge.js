@@ -211,7 +211,8 @@ Raphael.fn.dialGauge = function(args) {
 		}		
 		while (i < length) {
 			var threshold = args.thresholds.values[i] - previous_value;
-			var percentage = threshold/range, index, previous_index = index_number;			
+			var percentage = threshold/range, index, previous_index = index_number;	
+			var bos = (percentage >= .75) ? 1 : 0;			
 			index = 40*percentage;
 			index_number += index;
 			var pointAX = pointGSet[previous_index].x,
@@ -221,7 +222,9 @@ Raphael.fn.dialGauge = function(args) {
 			var arc = paper.path("M"+pointAX+","
 					  +pointAY+
 					   "A"+(cr*.60)+","+(cr*.60)+
-					   ",0,0,1,"+
+					   ",0," 
+					  + bos
+					  +",1,"+
 				   	   pointBX+","
 				   	  +pointBY).attr({
 				   	   	stroke: args.thresholds.colors[i],
