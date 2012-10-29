@@ -208,13 +208,18 @@ Raphael.fn.dialGauge = function(args) {
 		}		
 		for (var k = 0; k <= 35; k += 1) {
 			pointGSet.push(pointFSet[k]);
-		}		
+		}
 		while (i < length) {
-			var threshold = args.thresholds.values[i] - previous_value;
+			var threshold = args.thresholds.values[i] - previous_value;			
 			var percentage = threshold/range, index, previous_index = index_number;	
 			var bos = (percentage >= .75) ? 1 : 0;			
-			index = 40*percentage;
-			index_number += index;
+			index = parseInt(40*percentage);			
+			if (i == length - 1) 
+				index_number = 40;
+			else
+				index_number += index;
+			console.log(previous_index);
+			console.log(index_number);
 			var pointAX = pointGSet[previous_index].x,
 				pointAY = pointGSet[previous_index].y,
 				pointBX = pointGSet[index_number].x,
