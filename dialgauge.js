@@ -217,9 +217,7 @@ Raphael.fn.dialGauge = function(args) {
 			if (i == length - 1) 
 				index_number = 40;
 			else
-				index_number += index;
-			console.log(previous_index);
-			console.log(index_number);
+				index_number += index;			
 			var pointAX = pointGSet[previous_index].x,
 				pointAY = pointGSet[previous_index].y,
 				pointBX = pointGSet[index_number].x,
