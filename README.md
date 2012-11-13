@@ -37,3 +37,4 @@ Options
 * alert: number. e.g. 400   alert when value between [400, max]
 
 
+![Dial Gauge](https://raw.github.com/pengz/DialGauge/master/screenshot/dial1.png "Dial Gauge")
