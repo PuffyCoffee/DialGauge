@@ -41,3 +41,6 @@ Options
 ![Dial Gauge](https://raw.github.com/PuffyCoffee/DialGauge/master/screenshot/dial2.png "Dial Gauge")
 ![Dial Gauge](https://raw.github.com/PuffyCoffee/DialGauge/master/screenshot/dial3.png "Dial Gauge")
 ![Dial Gauge](https://raw.github.com/PuffyCoffee/DialGauge/master/screenshot/dial4.png "Dial Gauge")
+
+-------
+Peng Zhang 2012
