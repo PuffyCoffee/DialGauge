@@ -6,7 +6,7 @@
 Example
 -------
 
-```
+```javascript
 var dial = Raphael('gauge', 370, 370).dialGauge({
 	div: document.getElementById('gauge'),
 	unit: 'ms',
