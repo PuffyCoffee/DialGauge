@@ -36,9 +36,10 @@ Raphael.fn.dialGauge = function(args) {
 	});
 	var i = 0, j = 0, length = 12, 
 		radiusA = cr*.7, radiusB = cr*.57, radiusC = cr*.63, 
-		radiusD = cr*.6, 
+		radiusD = cr*.6, radiusE = cr*.5,
 		pointASet = [], pointBSet = [], pointCSet = [], 
-		pointDSet = [], pointESet = [], pointFSet = []; 
+		pointDSet = [], pointESet = [], pointFSet = [],
+		pointGSet = []; 
 	for (; i < length; i += 1) {
 		if (i !== 8 && i !== 9 && i !== 10) {
 			var x_offset = Math.cos(i*Math.PI/6)*radiusA;
@@ -58,20 +59,48 @@ Raphael.fn.dialGauge = function(args) {
 				x: cr - x_offset,
 				y: cr - y_offset
 			};
+			var x_offset_g = Math.cos(j*Math.PI/6)*radiusE;
+			var y_offset_g = Math.sin(j*Math.PI/6)*radiusE;
+			var coordinate_g = {
+				x: cr - x_offset_g,
+				y: cr - y_offset_g
+			}
 			pointBSet.push(coordinate);
+			pointGSet.push(coordinate_g);
 		}	
 	}
 	//Draw
-	var mark_long = paper.set();
+	var mark_long = paper.set(), mark_digit = paper.set();
+	var mark_long_digits = [], digit_range = args.max - args.min,
+		digit_step = parseFloat(digit_range)/8;
+	for (var k = 0; k <= 8; k += 1) {
+		mark_long_digits.push(digit_step*k);
+	}
 	for (var j = 0; j < pointASet.length; j += 1) {
 		var mark = paper.path("M"+pointASet[j].x+","+pointASet[j].y+
 				   "L"+pointBSet[j].x+","+pointBSet[j].y).attr({
 				   	stroke: '#ffffff',
 				   	'stroke-width': 3
 				   });
+		var digit = paper.text(pointGSet[j].x, pointGSet[j].y, "x").attr({
+			'font-size': cr*.08,
+			'text-anchor': 'middle'
+		});
 		mark_long.push(mark);
+		mark_digit.push(digit);
 		dial_gauge.push(mark);
+		dial_gauge.push(digit);
 	}
+	mark_long_digits.push(mark_long_digits[0]);
+	mark_long_digits.splice(0, 1);
+	console.log(mark_long_digits);
+	mark_digit.forEach(function(shape, index) {
+		shape.attr({
+			text : mark_long_digits[index].toFixed(0)
+		});
+	});
+	
+
 	for (var i = 0; i < 60; i += 1) {
 		if (i < 36 || i > 54) {
 			var x_offset = Math.cos(i*Math.PI/30)*radiusC;
@@ -142,6 +171,7 @@ Raphael.fn.dialGauge = function(args) {
 		valueBCoordinateX = pointASet[pointASet.length-2].x - cr*.067,
 		valueBCoordinateY = pointASet[pointASet.length-2].y + cr*.067;
 
+	/*
 	var start_value = paper.text(valueACoordinateX, valueACoordinateY, args.min).attr({
 		'font-size': cr*.107,
 		'text-anchor': 'start',
@@ -154,6 +184,7 @@ Raphael.fn.dialGauge = function(args) {
 		fill: '#ffffff'
 	});
 	dial_gauge.push(start_value, end_value);
+	*/
 	//threshold
 	if (typeof args.thresholds === 'undefined') {
 		//Green
@@ -309,8 +340,8 @@ Raphael.fn.dialGauge = function(args) {
 		}		
 		c4.attr({fill: c4_color_fill, stroke: c4_color_stroke});
 		unit.attr({fill: unit_color});
-		start_value.attr({fill: start_value_color});
-		end_value.attr({fill: end_value_color});
+		//start_value.attr({fill: start_value_color});
+		//end_value.attr({fill: end_value_color});
 		bottom_number.attr({fill: bottom_number_color});
 		pointer.attr({fill: pointer_color, stroke: pointer_color});		
 	}	

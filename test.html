@@ -10,7 +10,19 @@
 	
 </div>
 <script type="text/javascript">
-	
+var dial = Raphael('gauge', 300, 300).dialGauge({
+    div: document.getElementById('gauge'),
+    unit: 'ms',
+    min: 0,
+    max: 100,
+    skin: 'CRISP_WHITE',
+    thresholds: {
+        values: [50, 80, 100],
+        colors: ['#2fff2f', '#ffff63', '#ff3939']
+    },
+    alert: 800
+});
+dial.instance.pointAt(80);
 </script>
 </body>
 </html>

@@ -15,7 +15,7 @@ var dial = Raphael('gauge', 370, 370).dialGauge({
 	skin: 'CRISP_WHITE',
 	thresholds: {
 		values: [250, 400, 500],
-		colors: ['#2ffff2f', '#ffff63', '#ff3939']
+		colors: ['#2fff2f', '#ffff63', '#ff3939']
 	},
 	alert: 400
 });
