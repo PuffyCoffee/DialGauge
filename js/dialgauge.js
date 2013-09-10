@@ -93,7 +93,6 @@ Raphael.fn.dialGauge = function(args) {
 	}
 	mark_long_digits.push(mark_long_digits[0]);
 	mark_long_digits.splice(0, 1);
-	console.log(mark_long_digits);
 	mark_digit.forEach(function(shape, index) {
 		shape.attr({
 			text : mark_long_digits[index].toFixed(0)
