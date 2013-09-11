@@ -9,7 +9,7 @@ Raphael.fn.dialGauge = function(args) {
 		obj = {},
 		width = parseInt(window.getComputedStyle(args.div).width),
 		height = parseInt(window.getComputedStyle(args.div).height),
-		cx = width/2, cy = width/2, cr = width/2,	
+		cx = width/2, cy = height/2, cr = height/2,	
 		c1 = paper.circle(cx, cy, cr*.87).attr({
 			fill: '120-#333-#ddd',
 			stroke: '#ffffff'
@@ -45,7 +45,7 @@ Raphael.fn.dialGauge = function(args) {
 			var x_offset = Math.cos(i*Math.PI/6)*radiusA;
 			var y_offset = Math.sin(i*Math.PI/6)*radiusA;
 			var coordinate = {
-				x: cr - x_offset,
+				x: cx - x_offset,
 				y: cr - y_offset
 			};
 			pointASet.push(coordinate);
@@ -56,13 +56,13 @@ Raphael.fn.dialGauge = function(args) {
 			var x_offset = Math.cos(j*Math.PI/6)*radiusB;
 			var y_offset = Math.sin(j*Math.PI/6)*radiusB;
 			var coordinate = {
-				x: cr - x_offset,
+				x: cx - x_offset,
 				y: cr - y_offset
 			};
 			var x_offset_g = Math.cos(j*Math.PI/6)*radiusE;
 			var y_offset_g = Math.sin(j*Math.PI/6)*radiusE;
 			var coordinate_g = {
-				x: cr - x_offset_g,
+				x: cx - x_offset_g,
 				y: cr - y_offset_g
 			}
 			pointBSet.push(coordinate);
@@ -105,7 +105,7 @@ Raphael.fn.dialGauge = function(args) {
 			var x_offset = Math.cos(i*Math.PI/30)*radiusC;
 			var y_offset = Math.sin(i*Math.PI/30)*radiusC;
 			var coordinate = {
-				x: cr - x_offset,
+				x: cx - x_offset,
 				y: cr - y_offset
 			};
 			pointCSet.push(coordinate);
@@ -116,7 +116,7 @@ Raphael.fn.dialGauge = function(args) {
 			var x_offset = Math.cos(i*Math.PI/30)*radiusA;
 			var y_offset = Math.sin(i*Math.PI/30)*radiusA;
 			var coordinate = {
-				x: cr - x_offset,
+				x: cx - x_offset,
 				y: cr - y_offset
 			};
 			pointDSet.push(coordinate);
@@ -128,7 +128,7 @@ Raphael.fn.dialGauge = function(args) {
 			var x_offset = Math.cos(i*Math.PI/30)*radiusB;
 			var y_offset = Math.sin(i*Math.PI/30)*radiusB;
 			var coordinate = {
-				x: cr - x_offset,
+				x: cx - x_offset,
 				y: cr - y_offset
 			};
 			pointESet.push(coordinate);
@@ -139,7 +139,7 @@ Raphael.fn.dialGauge = function(args) {
 			var x_offset = Math.cos(i*Math.PI/30)*radiusD;
 			var y_offset = Math.sin(i*Math.PI/30)*radiusD;
 			var coordinate = {
-				x: cr - x_offset,
+				x: cx - x_offset,
 				y: cr - y_offset
 			};
 			pointFSet.push(coordinate);
