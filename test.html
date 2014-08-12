@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="gauge" style="width: 400px; height: 300px; border: 1px solid blue;">
-	
+
 </div>
 <script type="text/javascript">
 var dial = Raphael('gauge', 400, 300).dialGauge({
@@ -15,6 +15,7 @@ var dial = Raphael('gauge', 400, 300).dialGauge({
     unit: 'ms',
     min: 0,
     max: 100,
+		label: "CPU",
     skin: 'CRISP_WHITE',
     thresholds: {
         values: [50, 80, 100],
@@ -22,7 +23,7 @@ var dial = Raphael('gauge', 400, 300).dialGauge({
     },
     alert: 80
 });
-dial.instance.pointAt(100);
+dial.instance.pointAt(20);
 </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
-/** 
- * Raphael Dial Gauge 
+/**
+ * Raphael Dial Gauge
  * @author pzhang
- * 
+ *
  */
 
 Raphael.fn.dialGauge = function(args) {
@@ -9,7 +9,7 @@ Raphael.fn.dialGauge = function(args) {
 		obj = {},
 		width = parseInt(window.getComputedStyle(args.div).width),
 		height = parseInt(window.getComputedStyle(args.div).height),
-		cx = width/2, cy = height/2, cr = height/2,	
+		cx = width/2, cy = height/2, cr = height/2,
 		c1 = paper.circle(cx, cy, cr*.87).attr({
 			fill: '120-#333-#ddd',
 			stroke: '#ffffff'
@@ -34,12 +34,12 @@ Raphael.fn.dialGauge = function(args) {
 		opacity: cr/100,
 		color: '#720000'
 	});
-	var i = 0, j = 0, length = 12, 
-		radiusA = cr*.7, radiusB = cr*.57, radiusC = cr*.63, 
+	var i = 0, j = 0, length = 12,
+		radiusA = cr*.7, radiusB = cr*.57, radiusC = cr*.63,
 		radiusD = cr*.6, radiusE = cr*.5,
-		pointASet = [], pointBSet = [], pointCSet = [], 
+		pointASet = [], pointBSet = [], pointCSet = [],
 		pointDSet = [], pointESet = [], pointFSet = [],
-		pointGSet = []; 
+		pointGSet = [];
 	for (; i < length; i += 1) {
 		if (i !== 8 && i !== 9 && i !== 10) {
 			var x_offset = Math.cos(i*Math.PI/6)*radiusA;
@@ -49,7 +49,7 @@ Raphael.fn.dialGauge = function(args) {
 				y: cr - y_offset
 			};
 			pointASet.push(coordinate);
-		}	
+		}
 	}
 	for (; j < length; j += 1) {
 		if (j < 8 || j > 10) {
@@ -67,7 +67,7 @@ Raphael.fn.dialGauge = function(args) {
 			}
 			pointBSet.push(coordinate);
 			pointGSet.push(coordinate_g);
-		}	
+		}
 	}
 	//Draw
 	var mark_long = paper.set(), mark_digit = paper.set();
@@ -98,7 +98,7 @@ Raphael.fn.dialGauge = function(args) {
 			text : mark_long_digits[index].toFixed(0)
 		});
 	});
-	
+
 
 	for (var i = 0; i < 60; i += 1) {
 		if (i < 36 || i > 54) {
@@ -156,7 +156,7 @@ Raphael.fn.dialGauge = function(args) {
 				   });
 		mark_short.push(mark);
 		dial_gauge.push(mark);
-	}	
+	}
 	//Draw unit
 	var unit = paper.text(cx, cy*.63, args.unit).attr({
 		'font-size': cr*.12,
@@ -164,6 +164,13 @@ Raphael.fn.dialGauge = function(args) {
 		'text-anchor': 'middle'
 	});
 	dial_gauge.push(unit);
+	//Draw label
+	var label = paper.text(cx, cy*1.4, args.label).attr({
+		'font-size': cr*.12,
+		fill: '#ffffff',
+		'text-anchor': 'middle'
+	});
+	dial_gauge.push(label);
 	//Draw value
 	var valueACoordinateX = pointASet[pointASet.length-1].x + cr*.067,
 		valueACoordinateY = pointASet[pointASet.length-1].y + cr*.067,
@@ -193,7 +200,7 @@ Raphael.fn.dialGauge = function(args) {
 			pointBY = pointFSet[36].y;
 		var threshold1 = paper.path("M"+pointBX+","
 					  +pointBY+
-				   	  "A"+(cr*.60)+","+(cr*.60)+ 
+				   	  "A"+(cr*.60)+","+(cr*.60)+
 				   	   ",0,0,1,"+
 				   	   pointAX+","
 				   	  +pointAY).attr({
@@ -228,34 +235,34 @@ Raphael.fn.dialGauge = function(args) {
 				   	   	stroke: '#ff3939',
 				   	   	'stroke-width': 8
 				   	   });
-		dial_gauge.push(threshold1, threshold2, threshold3);		  
+		dial_gauge.push(threshold1, threshold2, threshold3);
 	} else {
 		var length = args.thresholds.values.length, i = 0
 			min_value = args.min, max_value = args.max, range = max_value - min_value,
 			previous_value = min_value, index_number = 0, pointGSet = [];
 		for (var k = 36; k < pointFSet.length; k += 1) {
 			pointGSet.push(pointFSet[k]);
-		}		
+		}
 		for (var k = 0; k <= 35; k += 1) {
 			pointGSet.push(pointFSet[k]);
 		}
 		while (i < length) {
-			var threshold = args.thresholds.values[i] - previous_value;			
-			var percentage = threshold/range, index, previous_index = index_number;	
-			var bos = (percentage >= .75) ? 1 : 0;			
-			index = parseInt(40*percentage);			
-			if (i == length - 1) 
+			var threshold = args.thresholds.values[i] - previous_value;
+			var percentage = threshold/range, index, previous_index = index_number;
+			var bos = (percentage >= .75) ? 1 : 0;
+			index = parseInt(40*percentage);
+			if (i == length - 1)
 				index_number = 40;
 			else
-				index_number += index;			
+				index_number += index;
 			var pointAX = pointGSet[previous_index].x,
 				pointAY = pointGSet[previous_index].y,
 				pointBX = pointGSet[index_number].x,
-				pointBY = pointGSet[index_number].y;			
+				pointBY = pointGSet[index_number].y;
 			var arc = paper.path("M"+pointAX+","
 					  +pointAY+
 					   "A"+(cr*.60)+","+(cr*.60)+
-					   ",0," 
+					   ",0,"
 					  + bos
 					  +",1,"+
 				   	   pointBX+","
@@ -267,8 +274,8 @@ Raphael.fn.dialGauge = function(args) {
 			i += 1;
 			dial_gauge.push(arc);
 		}
-	} 	
-	
+	}
+
 	var bottom_number = paper.text(cx, cy*1.6, args.min).attr({
 		'font-size': cr*.17,
 		'text-anchor': 'middle',
@@ -306,19 +313,19 @@ Raphael.fn.dialGauge = function(args) {
 		stroke: '#dc0000'
 	});
 	pointer.transform("r-120,"+cx+","+cy);
-	dial_gauge.push(pointer);	
-	var isMobile = false;	
-	if (navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {		
+	dial_gauge.push(pointer);
+	var isMobile = false;
+	if (navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
 		isMobile = true;
-	} else {		
+	} else {
 		isMobile = false;
-	}	
+	}
 	mark_short.toFront();
 	mark_long.toFront();
 	pointer.toFront();
 	center_button.toFront();
 	//skin
-	function setSkin (c3_color, c3_color_glow, c4_color_fill, c4_color_stroke, mark_long_color, mark_short_color, 
+	function setSkin (c3_color, c3_color_glow, c4_color_fill, c4_color_stroke, mark_long_color, mark_short_color,
 		unit_color, start_value_color, end_value_color, bottom_number_color, pointer_color, hide_mark) {
 		c3_glow.remove();
 		c3.attr({stroke: c3_color});
@@ -336,38 +343,39 @@ Raphael.fn.dialGauge = function(args) {
 			mark_short.attr({stroke: mark_short_color});
 			mark_long.show();
 			mark_short.show();
-		}		
+		}
 		c4.attr({fill: c4_color_fill, stroke: c4_color_stroke});
 		unit.attr({fill: unit_color});
+		label.attr({fill: unit_color});
 		//start_value.attr({fill: start_value_color});
 		//end_value.attr({fill: end_value_color});
 		bottom_number.attr({fill: bottom_number_color});
-		pointer.attr({fill: pointer_color, stroke: pointer_color});		
-	}	
+		pointer.attr({fill: pointer_color, stroke: pointer_color});
+	}
 	if (typeof args.skin !== 'undefined') {
 		switch (args.skin) {
 			case 'CPU_UTILIZATION':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd',
 					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
 				break;
 			case 'CRISP_WHITE':
-				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', 
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000',
 					'#000000', '#000000', '#000000', '#000000', '#000000', '#000000', false);
 				break;
 			case 'CLEAN_BLACK':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd',
 					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			case 'CLEAN_BLACK_NO_TRICKS':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd',
 					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
 				break;
 			case 'DISK_IO_BBR':
-				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', 
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000',
 					'#000000', '#000000', '#000000', '#000000', '#000000', '#000000', true);
 				break;
 			case 'THREAD_COUNTS':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd',
 					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			case 'CONSOLE_RED':
@@ -378,34 +386,34 @@ Raphael.fn.dialGauge = function(args) {
 	} else {
 		//Skin: CONSOLE_RED
 	}
-	this.changeSkin = function(skin_name) {		
+	this.changeSkin = function(skin_name) {
 		switch (skin_name) {
 			case 'CPU_UTILIZATION':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd',
 					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
 				break;
 			case 'CRISP_WHITE':
-				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', 
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000',
 					'#000000', '#000000', '#000000', '#000000', '#000000', '#000000', false);
 				break;
 			case 'CLEAN_BLACK':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd',
 					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			case 'CLEAN_BLACK_NO_TRICKS':
-				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd', 
+				setSkin('#000000', '#000000', '120-#000000-#222222: 60-#ddd',
 					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', true);
 				break;
 			case 'DISK_IO_BBR':
-				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000', 
+				setSkin('#c8c8c8', '#c8c8c8', '#ffffff', '#ffffff', '#000000',
 					'#000000', '#000000', '#000000', '#000000', '#000000', '#000000', true);
 				break;
 			case 'THREAD_COUNTS':
-				setSkin('#590000', '#720000', '120-#000000-#222222: 60-#ddd', 
+				setSkin('#590000', '#720000', '120-#000000-#222222: 60-#ddd',
 					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			case 'CONSOLE_RED':
-				setSkin('#590000', '#720000', '120-#000000-#222222: 60-#ddd', 
+				setSkin('#590000', '#720000', '120-#000000-#222222: 60-#ddd',
 					'#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#dc0000', false);
 				break;
 			default:
@@ -413,9 +421,9 @@ Raphael.fn.dialGauge = function(args) {
 		}
 	};
 	//Calculate alert range
-	var mid_value = (args.max + args.min)/2, angle_sign = 1, alert_range = [];	
+	var mid_value = (args.max + args.min)/2, angle_sign = 1, alert_range = [];
 	if (args.alert < 250) {
-		alert_range.push((args.alert - mid_value)/mid_value * 120);		
+		alert_range.push((args.alert - mid_value)/mid_value * 120);
 		alert_range.push(120);
 	} else {
 		alert_range.push((args.alert - mid_value)/mid_value * 120);
@@ -434,13 +442,13 @@ Raphael.fn.dialGauge = function(args) {
 		if (isMobile) {
 			pointer.animate({
 				transform: 'r' + angle + ","+cx+","+cy
-			});		
+			});
 		} else {
 			pointer.animate({
 				transform: 'r' + angle + ","+cx+","+cy
-			}, 2000, "elastic");			
+			}, 2000, "elastic");
 		}
-		if (typeof args.alert !== 'undefined') {			
+		if (typeof args.alert !== 'undefined') {
 			if (alert_range[0] <= angle) {
 				var blink_red = function() {
 						c4.animate({
@@ -464,27 +472,27 @@ Raphael.fn.dialGauge = function(args) {
 						pointer.animate({
 							transform: 'r'+(angle + 2)+","+cx+","+cy
 						}, 100, shake_);
-					};			
+					};
 				blink_red();
 				shake_();
-			} else {				
+			} else {
 				c4.stop();
 				pointer.stop();
 				if (isMobile) {
 					pointer.animate({
 						transform: 'r' + angle + ","+cx+","+cy
-					});		
+					});
 				} else {
 					pointer.animate({
 						transform: 'r' + angle + ","+cx+","+cy
-					}, 2000, "elastic");			
+					}, 2000, "elastic");
 				}
 				c4.attr({
 					fill: fill_color,
 					stroke: stroke_color
 				});
 			}
-		}		 
+		}
 	};
 	obj = {
 		'elements': dial_gauge,
@@ -502,8 +510,3 @@ Raphael.fn.dialGauge = function(args) {
 	};
 	return obj;
 };
-
-
-
-
-
