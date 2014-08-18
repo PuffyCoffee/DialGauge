@@ -8,7 +8,7 @@ Raphael.fn.dialGauge = function(args) {
 	var paper = this, dial_gauge = paper.set(),
 		obj = {},
 		width = parseInt(window.getComputedStyle(args.div).width),
-		height = parseInt(window.getComputedStyle(args.div).height),
+		height = parseInt(window.getComputedStyle(args.div).height) * .8,
 		cx = width/2, cy = height/2, cr = height/2,
 		c1 = paper.circle(cx, cy, cr*.87).attr({
 			fill: '120-#333-#ddd',
@@ -171,6 +171,13 @@ Raphael.fn.dialGauge = function(args) {
 		'text-anchor': 'middle'
 	});
 	dial_gauge.push(label);
+	//Draw device name
+	var bottom_label = paper.text(cx, parseInt(window.getComputedStyle(args.div).height)*0.9, args.bot_label).attr({
+		'font-size': cr*.12,
+		fill: '#000000',
+		'text-anchor': 'middle'
+	});
+	dial_gauge.push(bottom_label);
 	//Draw value
 	var valueACoordinateX = pointASet[pointASet.length-1].x + cr*.067,
 		valueACoordinateY = pointASet[pointASet.length-1].y + cr*.067,
